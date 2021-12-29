@@ -45,23 +45,24 @@ const emptyListObserver = new MutationObserver(() => {
 
 emptyListObserver.observe(savedList, {childList: true})
 
+function createElem(elemName, className, ...other) {
+    const elem = document.createElement(elemName);
+    elem.classList.add(className);
+    
+    return elem
+} 
+
 function createSavedListItem (repo) {
-    let savedEl = document.createElement('li');
-    savedEl.classList.add('save-search__list-item');
-    let savedElOwnerAvatar = document.createElement('img');
-    savedElOwnerAvatar.classList.add('save-search__item-avatar');
+    let savedEl = createElem('li', 'save-search__list-item');
+    let savedElOwnerAvatar = createElem('img', 'save-search__item-avatar');
     savedElOwnerAvatar.src = repo.owner.avatar_url;
-    let savedElOwner = document.createElement('div');
-    savedElOwner.classList.add('save-search__item-owner');
+    let savedElOwner = createElem('div', 'save-search__item-owner');
     savedElOwner.insertAdjacentHTML('afterbegin', `<b>Owner:</b><br>${repo.owner.login}`);
-    let savedElName = document.createElement('div');
-    savedElName.classList.add('save-search__item-name');
+    let savedElName = createElem('div', 'save-search__item-name');
     savedElName.insertAdjacentHTML('afterbegin', `<b>Name:</b><br>${repo.name}`);
-    let savedElStars = document.createElement('div');
-    savedElStars.classList.add('save-search__item-stars');
+    let savedElStars = createElem('div', 'save-search__item-stars');
     savedElStars.insertAdjacentHTML('afterbegin', `<b>Stars:</b><br>${repo.stargazers_count}`);
-    let savedElDeleteButton = document.createElement('button');
-    savedElDeleteButton.classList.add('save-search__delete-button');
+    let savedElDeleteButton = createElem('button', 'save-search__delete-button');
     savedEl.append(savedElOwnerAvatar, savedElOwner, savedElName, savedElStars, savedElDeleteButton);
     savedList.append(savedEl);
 }
