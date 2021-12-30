@@ -45,17 +45,17 @@ const emptyListObserver = new MutationObserver(() => {
 
 emptyListObserver.observe(savedList, {childList: true})
 
-function createElem(elemName, className, ...other) {
+function createElem(elemName, className, src) {
     const elem = document.createElement(elemName);
     elem.classList.add(className);
-    
+    elem.src = src
+
     return elem
 } 
 
 function createSavedListItem (repo) {
     let savedEl = createElem('li', 'save-search__list-item');
-    let savedElOwnerAvatar = createElem('img', 'save-search__item-avatar');
-    savedElOwnerAvatar.src = repo.owner.avatar_url;
+    let savedElOwnerAvatar = createElem('img', 'save-search__item-avatar', repo.owner.avatar_url);
     let savedElOwner = createElem('div', 'save-search__item-owner');
     savedElOwner.insertAdjacentHTML('afterbegin', `<b>Owner:</b><br>${repo.owner.login}`);
     let savedElName = createElem('div', 'save-search__item-name');
